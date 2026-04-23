@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+data/
+!data/.gitkeep
+data/raw/
+!data/raw/.gitkeep
+*.parquet
+.venv/
+venv/
+env/
+.pytest_cache/
+.agent/*

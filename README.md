@@ -1,26 +1,59 @@
-# Colgate Foco Dashboard
+# 🪥 Colgate Foco - Organizador de Itens Foco
 
-O Colgate Foco é um dashboard desenvolvido primariamente para equipes de campo e backoffice gerenciarem e analisarem as variações dinâmicas das planilhas de foco e vizinhança da Colgate-Palmolive (FX 1-2, FX 3, FX 4 e FX 5).
+Ferramenta B2B de alta performance para vendedores da Colgate-Palmolive facilitarem a gestão de portfólio por faixas de loja.
 
-## Ambiente B2B & UI/UX Mestre
-A interface é baseada nas métricas mais recentes de Web Guidelines e Usabilidade de Operação Rápida. O sistema emprega hierarquias limpas com Von Restorff effect no apontamento de Skus críticos para diminuir o tempo de decisão do vendedor em Mobile ou Desktop.
+## 🚀 Guia de Deploy (Recomendado)
 
-## Executando Localmente
+O Streamlit exige uma conexão persistente via WebSockets para funcionar corretamente. Por isso, **não recomendamos o deploy no Vercel** (que é focado em funções Serverless).
 
-Para iniciar a base de serviço e carregar o painel, acione o Streamlit:
-```bash
-pip install -r requirements.txt
-streamlit run app.py
-```
+### Opção 1: Streamlit Community Cloud (Grátis e Oficial)
 
-## Como Sincronizar Novos Dados (Acada 3 Meses)
-A persistência de memória do software é autônoma:
-1. Abra o serviço web do dashboard e navegue na aba "Gerenciamento".
-2. Pegue todos os PDFs corporativos (como "ITENS FOCO H&S.pdf", "VIZINHANÇA FX5.pdf") juntos, e arraste-os para o Upload.
-3. Clique em **Sincronizar**. O motor de *Ingestão Semântica* vai procurar a assinatura estrutural da tabela e devorá-las inteiras. Se houver algum erro de impressora na página da Colgate, a UI informará você de imediato ao invés de explodir.
-4. **Resiliência de Favoritos**: Pode atualizar sem medo. SKUs que você favoritou no ciclo anterior serão preservados e reacoplados à nova base contanto que não tenham sido deslistados das novas faixas.
+Esta é a opção "estilo Vercel" oficial para Streamlit:
 
-## Deploy para Produção Corporativa
-Como o sistema salva os "favoritos" em disco (`data/favoritos.json`) e lê a tabela mestre de um `data/base_consolidada.parquet`, se for subir na nuvem, você deve ter mapeamento de volume persistente para a pasta `/data`.
-*   Para subidas efêmeras gratuitas (ex: Render/Streamlit Cloud), todo "reboot" virtual da máquina fará com que essa pasta suma, caso você não forneça um volume acoplado.
-*   **Solução Rápida Recomendada**: Usar um host local/interno (Intranet).
+1. Suba este código para o seu GitHub (feito! ✅).
+2. Acesse [share.streamlit.io](https://share.streamlit.io).
+3. Conecte sua conta do GitHub.
+4. Selecione o repositório `organizador-faixas`.
+5. Clique em **Deploy**.
+
+### Opção 2: Render ou Railway (Produção)
+
+Se precisar de mais performance ou controle:
+1. Crie um novo "Web Service".
+2. Use o comando de inicialização: `streamlit run app.py --server.port $PORT --server.address 0.0.0.0`
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Framework:** [Streamlit](https://streamlit.io)
+- **Análise de Dados:** Pandas & PyArrow (Parquet para persistência ultrarrápida)
+- **Extração de PDF:** pdfplumber
+- **Geração de Relatórios:** fpdf2
+- **Visualização:** Plotly
+
+## 💻 Instalação Local
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/jayus-trashbin/organizador-faixas.git
+   ```
+
+2. Crie um ambiente virtual:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # No Windows: venv\Scripts\activate
+   ```
+
+3. Instale as dependências:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Execute o app:
+   ```bash
+   streamlit run app.py
+   ```
+
+---
+Desenvolvido para máxima produtividade em campo.
